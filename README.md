@@ -12,7 +12,7 @@ The `scripting` folder contains the weird glue code that facilitates the interop
 Usage
 -----
 Running `go run main.go` will initialize all the Go and Lua glue stuff,
-before finally executing the `main.lua` script:
+before finally executing `main.lua`:
 
 ```lua
 my_dog = dog.new("Dingus")
@@ -20,13 +20,25 @@ print(my_dog:name())
 
 my_dog:name("Bingus")
 print(my_dog:name())
+
+-- setting the function used when the dog speaks
+function print_dog_sound ()
+    print("Woof!")
+end
+my_dog:speak(print_dog_sound)
+
+print("asking the dog to speak from Lua...")
+my_dog:speak()()
 ```
 
-This script prints:
-
+Running `main.go` outputs the following:
 ```
 Dingus
 Bingus
+asking the dog to speak from Lua...
+Woof!
+asking the dog to speak from Go...
+Woof!
 ```
 
 Adding another field to Dog
